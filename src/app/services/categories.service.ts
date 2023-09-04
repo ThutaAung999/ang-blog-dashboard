@@ -104,4 +104,25 @@ return     this.afs.collection('categories')
     const collectionInstance = collection(this.firestore, 'categories');
     return collectionData(collectionInstance, { idField: 'id' }) as Observable<Category[]>;
   }*/
+
+
+  updateData(id:string,editedData:string){
+    /*this.afs.collection ('categories').doc(id).update(editedData)*/
+    this.afs.doc(`categories/${id}`).update(editedData)
+        .then(docRef=>{
+          console.log(docRef);
+          this.toastr.success('Data update successfully')
+        })
+  }
+
+  deleteData( id:string) {
+    /*this.afs.collection('categories').doc(id).delete()*/
+    this.afs.doc(`categories/${id}`).delete()
+      .then(()=>{
+        this.toastr.success('Data deleted successfully')
+      })
+  }
+
+
+
 }

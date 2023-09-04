@@ -16,6 +16,7 @@ export class CategoriesComponent implements OnInit{
 
   formCategory!:string
   formStatus:string='Add';
+  categoryId:string='';
 
 
   ngOnInit() {
@@ -33,11 +34,20 @@ export class CategoriesComponent implements OnInit{
 
     let categoryData:Category= {
       category : formData.value.category,
+    }//category    ဆိုတဲ့  field တစ်ခုထဲပါတဲ့ object ကို  Category လို့ သတ်မှတ်ပြီးတော့  categoryData ဆိုတဲ့ Category typeထဲထည့်
 
-    }
-
+  if(this.formStatus=='Add'){
     //Send the categoryData as Object type
     this.categoryService.saveData(categoryData).then(()=>{formData.reset()})
+    }
+  else if(this.formStatus=='Edit'){
+
+    this.categoryService.updateData(this.categoryId,formData.value)
+    formData.reset()
+    this.formStatus='Add';
+  }
+
+
   }
 
   onEdit(category:any){
@@ -47,5 +57,13 @@ export class CategoriesComponent implements OnInit{
         //this.formCategory=(JSON.stringify(category?.['category'])); // "React" လို့ထွက်လာ
 
         this.formStatus='Edit'
+
+        this.categoryId=category.id as string
+
   }
+
+  onDelete(category:Category){
+    this.categoryService.deleteData(category.id as string)
+  }
+
 }

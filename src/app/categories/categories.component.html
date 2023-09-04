@@ -51,16 +51,19 @@
             <tr *ngFor="let category of categoryArray ,index as i">
               <td>{{i+1}}</td>
               <td>{{category?.['category'] }}  </td>
+              <!--<td>{{category?.id }}  </td>-->
               <!--<td>{{category|json}}  </td>-->
               <!--<td>{{category.category}}  </td>-->
               <!--<td>{{category?.category |json}}  </td>-->
               <!--<td>{{category["category"]}}</td>-->
               <!--<td>{{[category["category"] |json]}}</td>-->
-
               <!--<td>{{ category['category']! |json }}  </td>-->
 
 
-              <td><button class="btn btn-sm btn-warning" (click)="onEdit(category)">Editing</button></td>
+              <td>
+                  <button class="btn btn-sm btn-warning me-2" (click)="onEdit(category)">Editing</button>
+                  <button class="btn btn-sm btn-danger" (click)="onDelete( category)">Delete</button>
+              </td>
 
             </tr>
             </tbody>
