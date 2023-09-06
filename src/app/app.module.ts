@@ -14,6 +14,8 @@ import { environment } from '../environments/environment.prod';
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import { CategoriesComponent } from './categories/categories.component';
 
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+
 //Angular 15
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
@@ -26,6 +28,14 @@ import {ToastrModule} from "ngx-toastr";
 
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { NewPostComponent } from './posts/new-post/new-post.component';
+import { AllPostComponent } from './posts/all-post/all-post.component';
+
+
+import {AngularEditorModule} from "@kolkov/angular-editor";
+import {HttpClientModule} from "@angular/common/http";
+
+import {ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -33,7 +43,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    NewPostComponent,
+    AllPostComponent
   ],
   imports: [
 
@@ -54,6 +66,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    AngularEditorModule,
+    HttpClientModule,
+
+    ReactiveFormsModule,
+
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

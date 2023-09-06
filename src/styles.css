@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '~font-awesome/css/font-awesome.min.css';
+
 
 
 :root{
@@ -13,7 +15,7 @@
 
 body{
   font-family: 'Roboto', sans-serif , Arial;
-  font-size: 12px;
+  font-size: 14px;
   color:var(--body-text-color);
 }
 
@@ -51,7 +53,7 @@ body{
 input[type="text"] ,input[type="email"]{
   height: 60px;
   padding-left: 20px;
-  font-size: 13px;
+
 }
 
 .btn-theme{
@@ -60,5 +62,6 @@ input[type="text"] ,input[type="email"]{
   font-size: 13px;
   background-color: var(--primary-color);
 }
+
 
 @import "~ngx-toastr/toastr"

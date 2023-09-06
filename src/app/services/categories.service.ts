@@ -17,6 +17,7 @@ export class CategoriesService {
 
 //  private categoryCollection!:  AngularFirestoreCollection<Category>
 
+
   constructor(
     //Angular 14
     private afs:AngularFirestore,
@@ -87,8 +88,12 @@ return     this.afs.collection('categories')
       map(actions=>{
         return actions.map(a=>{
               //const category=a.payload.doc.data() as Category; အဆင်မပြေဘူး
-          const category=a.payload.doc.data() as Category;
-              const id=a.payload.doc.id;
+
+          //const category=a.payload.doc.data() as Category;
+
+                  const category=a.payload.doc.data()  as Category
+
+                  const id=a.payload.doc.id;
                   category.id = id;
 
               //return  {id,category} //as Category;
