@@ -24,6 +24,8 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 //import { provideAuth,getAuth } from '@angular/fire/auth';
 //import { provideStorage,getStorage } from '@angular/fire/storage';
 
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+
 import {ToastrModule} from "ngx-toastr";
 
 import {FormsModule} from '@angular/forms';
@@ -36,6 +38,7 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
 import {HttpClientModule} from "@angular/common/http";
 
 import {ReactiveFormsModule } from "@angular/forms";
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import {ReactiveFormsModule } from "@angular/forms";
     DashboardComponent,
     CategoriesComponent,
     NewPostComponent,
-    AllPostComponent
+    AllPostComponent,
+    LoginComponent
   ],
   imports: [
 
@@ -72,6 +76,8 @@ import {ReactiveFormsModule } from "@angular/forms";
     ReactiveFormsModule,
 
     AngularFireStorageModule,
+    AngularFireAuthModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

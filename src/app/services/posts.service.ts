@@ -93,4 +93,11 @@ export class PostsService {
     })
   }
 
+  markFeatured(id:string, featuredData:any){
+    this.afs.doc(`posts/${id}`).update(featuredData).then(()=>{
+      this.toastr.info('Featured status updated.')
+    })
+  }
+
+
 }
