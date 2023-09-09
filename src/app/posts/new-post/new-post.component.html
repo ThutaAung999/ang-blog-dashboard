@@ -2,12 +2,13 @@
 
   <div class="row">
     <div class="col-md-12 text-center">
-      <h3 class="text-theme-primary"> Add New Post</h3>
+      <h3 class="text-theme-primary"> {{formStatus}} Post</h3>
       <p class="mb-5">You can add your new post here ..</p>
     </div>
   </div>
 
-  <form [formGroup]="postForm">
+  <div *ngIf="postForm" >
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
     <div class="row">
 
       <div class="col-md-7">
@@ -108,9 +109,9 @@
       <div class="col-md-12  text-center mb-5">
         <button class="btn btn-info btn-theme text-white py-3"
                 [disabled]="postForm.invalid"
-                (click)="onSubmit()"
+
         >
-          Save Post </button>
+          {{formStatus}} Post </button>
         <button class="btn btn-warning ms-3 py-3" routerLink="/posts">
           Back To post  </button>
       </div>
@@ -119,4 +120,5 @@
 
   </form>
 
+  </div>
 </div>

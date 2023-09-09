@@ -4,6 +4,7 @@ import {Category} from "../../models/category";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Post} from "../../models/post";
 import {PostsService} from "../../services/posts.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-new-post',
@@ -20,21 +21,58 @@ export class NewPostComponent implements OnInit{
 
   postForm!:FormGroup;
 //    postForm!:any;
+    post!:Post;
+
+  formStatus:string='Add New'
+
+  docId!:string;
 
   constructor(private categoryService:CategoriesService,
-              private fb:FormBuilder, private postService:PostsService) {
-    this.postForm=this.fb.group(
-      {
-        title:['',[Validators.required,Validators.minLength(10)]],
-        permalink:['',Validators.required],
-        excerpt:['',[Validators.required,Validators.minLength(50)]],
-        category:['',Validators.required],
-        postImg:['',Validators.required],
-        content:['',Validators.required]
+              private fb:FormBuilder, private postService:PostsService,
+              private route:ActivatedRoute) {
 
-      })
-    this.postForm.controls['permalink'].disable();
+    this.route.queryParams.subscribe(val=>{
+      console.log(' queryParams :' , val)
 
+      this.docId=val?.['id'];
+
+      if(this.docId) {
+        //this.postService.loadOneData(val['id'])
+        this.postService.loadOneData(val?.['id']).subscribe(post => {
+          this.post = post as Post;
+          console.log('post to edit :', post);
+
+
+          this.postForm = this.fb.group(
+            {
+              title: [this.post.title, [Validators.required, Validators.minLength(10)]],
+              permalink: [this.post.permalink, Validators.required],
+              excerpt: [this.post.excerpt, [Validators.required, Validators.minLength(50)]],
+              category: [`${this.post.category?.id}-${this.post.category?.category}`, Validators.required],
+              postImg: ['', Validators.required],
+              content: [this.post.content, Validators.required]
+
+            })
+          this.postForm.controls['permalink'].disable();
+          this.imgSrc = <string>this.post.postImgPath
+
+          this.formStatus = 'Edit'
+
+        })
+      }  //end of if block
+      else {
+        this.postForm=this.fb.group({
+          title:['',[Validators.required,Validators.minLength(10)]],
+          permalink:['',Validators.required],
+          excerpt:['',[Validators.required,Validators.minLength(50)]],
+          category:['',Validators.required],
+          postImg:['',Validators.required],
+          content:['',Validators.required]
+        })
+
+      }
+
+    })
   }
 
   ngOnInit() {
@@ -94,7 +132,7 @@ export class NewPostComponent implements OnInit{
       createdAt :new Date()
     }
     console.log(postData)
-    this.postService.uploadImage(this.selectedImage,postData)
+    this.postService.uploadImage(this.selectedImage,postData,this.formStatus,this.docId)
 
     this.postForm.reset()
     this.imgSrc='./assets/placeholder-image.jpg';

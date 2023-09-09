@@ -16,7 +16,7 @@ export class PostsService {
               private toastr:ToastrService,private router:Router) {}
 
 
-    uploadImage(selectedImage:any,postData:Post) {
+    uploadImage(selectedImage:any,postData:Post,formStatus:string,id:string) {
       const filePath=`postIMG/${Date.now()}`;
       console.log(filePath)
 
@@ -28,7 +28,11 @@ export class PostsService {
           postData.postImgPath=URL
           console.log(postData)
 
-          this.saveData(postData);
+          if(formStatus=='Edit'){
+            this.updateData(id,postData )
+          }else{
+            this.saveData(postData);
+          }
         })
       })
     }
@@ -60,6 +64,33 @@ export class PostsService {
         })
       })
     )
+  }
+
+  loadOneData(id:string){
+
+    //return this.afs.collection('posts').doc(id).valueChanges();
+    return this.afs.doc(`posts/${id}`).valueChanges();
+
+  }
+
+  updateData(id :string , postData:Post){
+    this.afs.doc(`posts/${id}`).update(postData).then(()=>{
+      this.toastr.success('Data  updated successfully')
+      this.router.navigate(['/posts'])
+    })
+  }
+
+
+  deleteImage(postImgPath:string,id:string){
+    this.storage.storage.refFromURL(postImgPath).delete().then(()=>{
+      this.deleteData(id)
+    });
+  }
+
+  deleteData(id:string){
+    this.afs.doc(`posts/${id}`).delete().then(()=>{
+      this.toastr.warning('Data Deleted successfully ')
+    })
   }
 
 }

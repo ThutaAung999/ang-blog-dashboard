@@ -11,6 +11,7 @@ export class AllPostComponent implements OnInit{
 
   postArray : Array<Post>=[];
 
+
   constructor(private postService:PostsService) {}
 
   ngOnInit() {
@@ -22,4 +23,9 @@ export class AllPostComponent implements OnInit{
 
     })
   }
+
+  onDelete(postImgPath:string,id:string){
+    this.postService.deleteImage(postImgPath,id);
+  }
+
 }
